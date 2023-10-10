@@ -1,0 +1,97 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+// User tables
+model User{
+    id Int @default(autoincrement()) @id
+    name String 
+    email String @unique
+    emailVerified DateTime?
+    userPets User_Pets[] 
+    userCart User_Cart[]
+    userCredentials User_Credentials[]
+
+   
+}
+
+model User_Credentials{
+    id Int @id @default(autoincrement())
+    name String 
+    email String @unique
+    userId Int?
+
+   User User? @relation(fields: [userId], references: [id])
+}
+
+// user x pets
+model User_Pets{
+    id Int @id @default(autoincrement())
+    UserId Int?
+    PetId Int?
+    
+    User User? @relation(fields: [UserId], references: [id])
+    Pet Pet? @relation(fields: [PetId], references: [id])
+}
+// user x cart
+model User_Cart{
+    id Int @id @default(autoincrement())
+    UserId Int?
+    CartId Int?
+
+    user User?  @relation(fields: [UserId], references: [id])
+    cart Cart? @relation(fields: [CartId], references: [id])
+}
+
+// 
+// Cart Tables
+model Cart{
+    id Int @id @default(autoincrement())
+    userCart User_Cart []
+    cartItem Cart_Item[]
+
+}
+model Cart_Item{
+    id Int @id @default(autoincrement())
+    productId Int
+    cartId Int
+    itemQuantity Int
+
+    product Product_Info? @relation(fields: [productId], references: [id])
+    cart Cart? @relation(fields: [cartId], references: [id])
+}
+
+// 
+// Product Tables
+model Product_Info{
+    id Int @id @default(autoincrement())
+    categoryId Int
+    name String
+    price Int?
+
+    carts Cart_Item[]
+    category Category_Info? @relation(fields:[categoryId], references: [id])
+}
+
+model Category_Info{
+    id Int @id @default(autoincrement())
+    name String
+
+    product Product_Info[]
+}
+
+// Pets tables
+model Pet{
+    id Int @default(autoincrement()) @id
+    userID Int
+    name String
+    animal String
+    petUser User_Pets[]
+}

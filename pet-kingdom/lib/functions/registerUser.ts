@@ -1,8 +1,6 @@
 'use server'
 
 import { RegistrationFormData } from "../types/Registration";
-
-
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
@@ -16,9 +14,9 @@ async function registerUser(registrationFormData: RegistrationFormData) {
       const error = new Error('missing form data');
       throw error;
     }
-    const { name, email, password, surname } = registrationFormData;
+    const { name, email, password, surname }:RegistrationFormData = registrationFormData;
 
-    // hash the password
+    // hash the password 
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     // fire the command to 

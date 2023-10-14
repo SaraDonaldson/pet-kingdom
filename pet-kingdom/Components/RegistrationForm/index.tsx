@@ -3,6 +3,7 @@ import { FormEventHandler, useEffect, useState } from "react";
 import { PrismaClient } from "@prisma/client";
 import { registerUser } from "@/lib/functions/registerUser";
 import { RegistrationFormData } from "@/lib/types/Registration";
+import { useRouter } from "next/navigation";
 
 
 export default function RegistrationForm() {
@@ -11,6 +12,7 @@ export default function RegistrationForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -20,10 +22,16 @@ export default function RegistrationForm() {
       }
       const formData: RegistrationFormData = { name, surname, email, password };
       const newlyCreatedUser = await registerUser(formData);
+      //@ts-ignore
       if (newlyCreatedUser.error) {
+      //@ts-ignore
         throw new Error(newlyCreatedUser.error);
       }
-      alert("User created: " + JSON.stringify(newlyCreatedUser));
+      let userString = JSON.stringify(newlyCreatedUser);
+      localStorage.setItem("user", userString);
+      alert("User created: " + userString);
+
+      router.push("/register/pet")
       // Redirect or show a success message
     } catch (error:any) {
       setErrorMessage(error);
@@ -32,7 +40,7 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex dark:text-black  justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h2 className="text-2xl mb-6 text-center">User Registration</h2>
         <form onSubmit={handleSubmit}>

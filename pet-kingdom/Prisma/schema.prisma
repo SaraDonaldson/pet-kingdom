@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,12 +11,12 @@ datasource db {
 model User {
   id              String            @id @default(uuid())
   name            String
-  surname            String
+  surname         String
   email           String            @unique
   emailVerified   Boolean?
-  pets            Pet[]
   carts           Cart[]
-  userCredentials User_Credentials? 
+  pets            Pet[]
+  userCredentials User_Credentials?
 }
 
 model User_Credentials {
@@ -28,19 +27,13 @@ model User_Credentials {
   user     User   @relation(fields: [userId], references: [id])
 }
 
-enum CartStatus {
-  ACTIVE
-  ABANDONED
-  CHECKED_OUT
-}
-
 model Cart {
-  id          String       @id @default(uuid())
-  status      CartStatus   @default(ACTIVE)
-  lastUpdated DateTime     @updatedAt
-  createdAt   DateTime     @default(now())
+  id          String      @id @default(uuid())
+  status      CartStatus  @default(ACTIVE)
+  lastUpdated DateTime    @updatedAt
+  createdAt   DateTime    @default(now())
   userId      String
-  user        User         @relation(fields: [userId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
   items       Cart_Item[]
 }
 
@@ -49,51 +42,52 @@ model Cart_Item {
   productId    String
   cartId       String
   itemQuantity Int
-  product      Product @relation(fields: [productId], references: [id])
   cart         Cart    @relation(fields: [cartId], references: [id])
+  product      Product @relation(fields: [productId], references: [id])
 }
 
 model Product {
-  id          String          @id @default(uuid())
+  id          String             @id @default(uuid())
   name        String
-  productInfo Product_Info?  
-  cartItems   Cart_Item[]     
+  cartItems   Cart_Item[]
   categories  Product_Category[]
+  productInfo Product_Info?
 }
 
 model Product_Info {
-  id               String               @id @default(uuid())
-  name             String               @default("Product Name")
-  description      String               @default("Add product description")
-  price            Float                @default(0)
-  inventory        Int                  @default(0)
-  inventoryWarning Int                  @default(0)
-  productId        String               @unique
-  product          Product              @relation(fields: [productId], references: [id])
-  images           Product_thumbnail[]
+  id               String             @id @default(uuid())
+  name             String             @default("Product Name")
+  description      String             @default("Add product description")
+  price            Float              @default(0)
+  inventory        Int                @default(0)
+  inventoryWarning Int                @default(0)
+  productId        String             @unique
+  product          Product            @relation(fields: [productId], references: [id])
+  images           Product_thumbnail?
 }
 
 model Product_thumbnail {
-  id           String       @id @default(uuid())
-  imageUrl     String
-  productInfoId String      @unique
-  productInfo  Product_Info @relation(fields: [productInfoId], references: [id])
-}
-model Category {
-  id       String           @id @default(uuid())
-  name     String
-  parentId String?          @unique
-  parent   Category?        @relation("CategoryToCategory", fields: [parentId], references: [id])
-  children Category[]       @relation("CategoryToCategory") 
-  products Product_Category[]
+  id            String       @id @default(uuid())
+  imageUrl      String
+  productInfoId String       @unique
+  productInfo   Product_Info @relation(fields: [productInfoId], references: [id])
 }
 
+model Category {
+  id       String             @id @default(uuid())
+  name     String
+  parentId String?            @unique
+  parent   Category?          @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children Category?          @relation("CategoryToCategory")
+  products Product_Category[]
+}
 
 model Product_Category {
   productId  String
   categoryId String
-  product    Product        @relation(fields: [productId], references: [id])
-  category   Category       @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+
   @@id([productId, categoryId])
 }
 
@@ -103,4 +97,10 @@ model Pet {
   name   String
   animal String
   user   User   @relation(fields: [userId], references: [id])
+}
+
+enum CartStatus {
+  ACTIVE
+  ABANDONED
+  CHECKED_OUT
 }

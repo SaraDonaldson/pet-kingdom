@@ -35,7 +35,14 @@ async function Login(LoginFormData: LoginFormData) {
 
         if(match) {
             // return userCredentials.userId
-            return match
+            // return match
+            const user= await prisma.user.findUnique({
+                where: {
+                  id: userCredentials.userId,
+                },
+              })
+              return user
+
         } else{
             return error
         }

@@ -8,7 +8,6 @@ import { LoginFormData } from "@/lib/types/Login";
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [userId, setUserId] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
 const handleSubmit = async (e: any) => {
@@ -24,11 +23,14 @@ const handleSubmit = async (e: any) => {
         //@ts-ignore
           throw new Error(login.error);
         }
-        // get user by id to add to local storage
-        // Redirect or show a success message
-        // need to get the user details to add name here
-        // alert("Welcome Back: " + JSON.stringify(login));
-        alert("Welcome Back: ");
+        // add user details to local storage
+        let userString = JSON.stringify(login);
+        localStorage.setItem("user", userString);
+
+    //  create alert to show success - include user name
+        const getUserInfo = localStorage.getItem("user");
+        const parsedUserInfo = getUserInfo && JSON.parse(getUserInfo);
+        alert("Welcome Back "+ parsedUserInfo.name);
    
       } catch (error:any) {
         setErrorMessage(error);

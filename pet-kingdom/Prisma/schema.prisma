@@ -76,7 +76,11 @@ model Product_thumbnail {
 model Category {
   id       String             @id @default(uuid())
   name     String
+  link     String             @default("/")
+  order    Int      
   parentId String?            @unique
+  headerImg String?     
+  description String?
   parent   Category?          @relation("CategoryToCategory", fields: [parentId], references: [id])
   children Category?          @relation("CategoryToCategory")
   products Product_Category[]

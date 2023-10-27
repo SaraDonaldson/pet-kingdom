@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import LoginForm from "@/Components/AddCategory";
 import AddCategory from "@/Components/AddCategory";
 
 const prisma = new PrismaClient();

@@ -15,16 +15,16 @@ async function createCategory(newCategory:Category) {
     //  check duplicates with existing categories - name + parent = same 
     //  return duplicate category name at parent message
     //  check duplicates with existing order at level - order number + parent = same
-    //  return duplicate category order with parent
+    //  add number until not the same as existing
   
     // only for front end test of category
-    if (newCategory.parentId === ""){
+    if (!newCategory.parentId){
         newCategory.parentId = undefined
     }
-    if (newCategory.headerImg === ""){
+    if (!newCategory.headerImg ){
         newCategory.headerImg = undefined
     }
-    if (newCategory.description=== ""){
+    if (!newCategory.description){
         newCategory.description = undefined
     }
 

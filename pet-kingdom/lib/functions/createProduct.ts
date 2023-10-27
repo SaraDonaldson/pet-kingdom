@@ -11,9 +11,20 @@ async function createProduct(newProduct:Product) {
 
 
     try {
-        
+    // To do:
     //  check duplicates with existing products - name + category = same 
     //  return duplicate category and name message
+
+    if (!newProduct.inventory ){
+        newProduct.inventory = undefined
+    }
+    if (!newProduct.inventoryWarning ){
+        newProduct.inventoryWarning = undefined
+    }
+    if (!newProduct.description){
+        newProduct.description = undefined
+    }
+
     
         const {name, categoryId, description, inventory, inventoryWarning, price, imageUrl}: Product= newProduct;
         const product = await prisma.product.create({

@@ -1,0 +1,41 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 32px;
+}
+
+.logo {
+    flex: 1;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.searchBar {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    color: black;
+}
+
+.searchBar input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 5px;
+}
+
+.navItems {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.icon {
+    margin-left: 15px;
+    cursor: pointer;
+}

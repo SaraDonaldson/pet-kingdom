@@ -1,5 +1,5 @@
 
-import Button from '@/components/Common/Button'
+import Button from '@/Components/Common/Button/Button'
 import { getAllUsers } from '@/lib/getUser'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'

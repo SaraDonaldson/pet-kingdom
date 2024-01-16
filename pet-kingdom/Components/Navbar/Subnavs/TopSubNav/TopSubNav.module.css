@@ -1,0 +1,33 @@
+.topNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 5px 15px;
+  height:2rem;
+}
+
+.siteLinks {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  color: #007bff;
+  text-decoration: none;
+  padding: 0 5px;
+}
+
+.pipe {
+  color: #6c757d;
+  padding: 0 5px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.trustpilotLogo {
+  height: 30px; /* You can adjust the size as needed */
+}

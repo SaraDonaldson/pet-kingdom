@@ -1,0 +1,75 @@
+.sliderContainer {
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.3s ease-out;
+}
+
+.slide {
+  flex-shrink: 0;
+  width: 100%; /* Adjust as necessary */
+  user-select: none;
+  pointer-events: none;
+}
+
+.sliderContainer:active {
+  cursor: grabbing;
+}
+
+
+
+.pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+  
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .activeDot {
+    background-color: #717171;
+  }
+  
+  .arrowLeft,
+  .arrowRight {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: none;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    z-index: 100;
+    transition:all .3s;
+  }
+  
+  .arrowLeft {
+    left: 10px;
+  }
+  
+  .arrowRight {
+    right: 10px;
+  }
+
+  .arrow:hover{
+    background-color: #fff;
+    transition:all .3s;
+
+  }
+  

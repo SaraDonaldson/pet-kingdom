@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gradient-to-r via-southPeach via-70% to-transparent  from-coral bg-opacity-5 p-6 text-white">
+    <footer className=" text-black bg-gradient-to-r via-southPeach via-70% to-transparent  from-coral bg-opacity-5 p-6 ">
       <div className="container mx-auto flex flex-col justify-between items-center">
         
         {/* Logo */}
@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
         
         {/* Links */}
         <div className="space-x-4">
-          <a href="#" className="hover:text-southPeach transition">Legal Stuff</a>
+          <a href="#" className="hover:text-southPeach text-black transition">Legal Stuff</a>
           <a href="#" className="hover:text-southPeach transition">Privacy Policy</a>
           <a href="#" className="hover:text-southPeach transition">Security</a>
         </div>

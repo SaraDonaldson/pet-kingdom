@@ -1,6 +1,7 @@
 'use client';
 import Button from '@/Components/Common/Button/Button'
 import Slider from '@/Components/Common/Slider/Slider';
+import { HeroBanner } from '@/Components/HeroBanner/HeroBanner';
 import Image from 'next/image'
 
 export default function Home() {
@@ -17,6 +18,8 @@ export default function Home() {
     }
 
   ]
+
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-2">
       <Button clickFunction={() =>console.log('clicked')} label={"click me"}/>

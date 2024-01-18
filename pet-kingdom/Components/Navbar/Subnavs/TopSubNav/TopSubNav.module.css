@@ -4,7 +4,7 @@
   align-items: center;
   background-color: #f8f9fa;
   padding: 5px 15px;
-  height:2rem;
+  height:3rem;
 }
 
 .siteLinks {
@@ -13,7 +13,7 @@
 }
 
 .link {
-  color: #007bff;
+  color: #525252;
   text-decoration: none;
   padding: 0 5px;
 }
@@ -28,6 +28,6 @@
   align-items: center;
 }
 
-.trustpilotLogo {
-  height: 30px; /* You can adjust the size as needed */
-}
+/* .trustpilotLogo {
+  height: 30px; 
+} */

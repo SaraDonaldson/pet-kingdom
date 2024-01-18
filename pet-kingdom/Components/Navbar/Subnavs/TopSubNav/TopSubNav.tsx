@@ -17,12 +17,19 @@ interface SiteLink {
 
 const sampleSiteLinks = [
     {label:'FAQ',
-        link:"/frequently-asked-questions"}
+        link:"/frequently-asked-questions"},
+    {label:'Pet Insurance',
+        link:"/vet-subscription"},
+    {label:'Adoption Subscription',
+        link:"/vet-subscription"},
 ]
 
 const TopSubNav: React.FC<TopNavProps> = ({ siteLinks=sampleSiteLinks }) => {
   return (
     <div className={styles.topNav}>
+      <div className={styles.logoContainer}>
+        <Image src={'/trustpilot-logo.png'} width={100} height={100} alt="Trustpilot" className={styles.trustpilotLogo} />
+      </div>
       <div className={styles.siteLinks}>
         {siteLinks.map((link, index) => (
           <React.Fragment key={index}>
@@ -30,9 +37,6 @@ const TopSubNav: React.FC<TopNavProps> = ({ siteLinks=sampleSiteLinks }) => {
             <Link  href={link.link} className={styles.link}>{link.label}</Link>
           </React.Fragment>
         ))}
-      </div>
-      <div className={styles.logoContainer}>
-        <Image src={'/trustpilot-logo.png'} width={100} height={30} alt="Trustpilot" className={styles.trustpilotLogo} />
       </div>
     </div>
   );

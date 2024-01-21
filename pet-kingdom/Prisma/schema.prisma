@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id              String            @id @default(uuid())
+  name            String
+  surname         String
+  email           String            @unique
+  emailVerified   Boolean?
+  carts           Cart[]
+  pets            Pet[]
+  userCredentials User_Credentials?
+}
+
+model User_Credentials {
+  id       String @id @default(uuid())
+  password String
+  email    String @unique
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model Cart {
+  id          String      @id @default(uuid())
+  status      CartStatus  @default(ACTIVE)
+  lastUpdated DateTime    @updatedAt
+  createdAt   DateTime    @default(now())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  items       Cart_Item[]
+}
+
+model Cart_Item {
+  lineItemId   String  @id @default(uuid())
+  productId    String
+  cartId       String
+  itemQuantity Int
+  cart         Cart    @relation(fields: [cartId], references: [id])
+  product      Product @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id          String             @id @default(uuid())
+  name        String
+  cartItems   Cart_Item[]
+  categories  Product_Category[]
+  productInfo Product_Info?
+}
+
+model Product_Info {
+  id               String             @id @default(uuid())
+  name             String             @default("Product Name")
+  description      String             @default("Add product description")
+  price            Float              @default(0)
+  inventory        Int                @default(0)
+  inventoryWarning Int                @default(0)
+  productId        String             @unique
+  product          Product            @relation(fields: [productId], references: [id])
+  images           Product_thumbnail?
+}
+
+model Product_thumbnail {
+  id            String       @id @default(uuid())
+  imageUrl      String
+  productInfoId String       @unique
+  productInfo   Product_Info @relation(fields: [productInfoId], references: [id])
+}
+
+model Category {
+  id       String             @id @default(uuid())
+  name     String
+  link     String             @default("/")
+  order    Int      
+  parentId String?            @unique
+  headerImg String?     
+  description String?
+  parent   Category?          @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children Category?          @relation("CategoryToCategory")
+  products Product_Category[]
+}
+
+model Product_Category {
+  productId  String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+
+  @@id([productId, categoryId])
+}
+
+model Pet {
+  id     String @id @default(uuid())
+  userId String
+  name   String
+  animal String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+enum CartStatus {
+  ACTIVE
+  ABANDONED
+  CHECKED_OUT
+}
